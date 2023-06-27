@@ -43,26 +43,6 @@ JSON.parse(imagesJson).images.forEach((image) => {
 })
 
 // All the routes
-app.post("/submit", upload.single("photo"), (req, res) => {
-  try {
-    const name = req.body.name
-    const image = req.file.buffer.toString("base64")
-
-    const query = "INSERT INTO photos (name, image) VALUES (?, ?)"
-    connection.query(query, [name, image], (error, results) => {
-      if (error) {
-        console.error("Error inserting photo into the database: " + error)
-        res.sendStatus(500)
-      } else {
-        res.redirect("/photos")
-      }
-    })
-  } catch (error) {
-    console.error(error)
-    res.sendStatus(500)
-  }
-})
-
 app.post("/api/submit", upload.single("photo"), (req, res) => {
   try {
     const name = req.body.name
@@ -90,7 +70,7 @@ app.get("/api/photos", (req, res) => {
       console.error("Error retrieving photos from the database: " + error)
       res.sendStatus(500)
     } else {
-      res.render("photos", { photos: results })
+      res.render("photos", { photos: results, active: 'photos' })
     }
   })
 })
