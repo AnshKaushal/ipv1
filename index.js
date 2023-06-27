@@ -4,6 +4,8 @@ const multer = require("multer")
 const mysql = require("mysql2")
 const fs = require("fs")
 const _ = require('lodash')
+const bodyParser = require("body-parser");
+const path = require('path')
 const postData = require(__dirname + "/data/data.json"); //data.json
 const posts = postData.posts; //posts
 
@@ -12,8 +14,10 @@ const port = 3000 // Change the port number if needed
 
 // Set up the view engine
 app.set("view engine", "ejs")
-app.use(express.static("public"))
+app.use(express.static(path.join(__dirname, "public")));
+app.use("/images", express.static(__dirname + "/images"));
 app.use(express.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Set up multer for file upload
 const storage = multer.memoryStorage()
