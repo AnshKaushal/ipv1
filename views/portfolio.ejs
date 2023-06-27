@@ -1,0 +1,18 @@
+<%- include ('partials/header') %>
+
+<h1 class="wrapper">Our Portfolio</h1>
+
+<div class="portfolio">
+  <% Object.keys(photos).forEach(function(id) { %>
+  <div class="project">
+    <img
+      src="<%= photos[id] %>"
+      width="500"
+      height="260"
+      alt="lorem"
+    />
+    <button onclick="window.open('<%= photos[id] %>', '_blank')" class="btn">View In Fullscreen</button>
+  </div>
+  <% }); %>
+</div>
+<%- include ('partials/footer') %>

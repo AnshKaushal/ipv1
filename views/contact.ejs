@@ -1,0 +1,47 @@
+<%- include ('partials/header') %>
+
+<div class="contact">
+  <h1>Contact Us</h1>
+  <br />
+  <p>
+    Whether you want to enquire or start a new project, just
+    <span style="color: #bffff0">contact us</span>.
+  </p>
+  <form
+    name="gform"
+    id="gform"
+    enctype="text/plain"
+    action="https://docs.google.com/forms/d/e/1FAIpQLSc6-yyd_NqFzILyV0siV2fwFXUMEtJ4OxYwQed5MrgGlh2RwA/formResponse?"
+    target="hidden_iframe"
+    onsubmit="submitted=true;"
+  >
+    <label for="entry.1507413414">Name : </label>
+    <input type="text" name="entry.1507413414" id="entry.1507413414" required />
+    <label for="entry.2010504488">Email : </label>
+    <input
+      type="email"
+      name="entry.2010504488"
+      id="entry.2010504488"
+      required
+    />
+    <label for="textarea">Message : </label>
+    <textarea
+      name="entry.732095473"
+      id="entry.732095473"
+      cols="30"
+      rows="10"
+      required
+    ></textarea>
+    <br />
+    <input class="submit1" type="submit" value="Submit" />
+  </form>
+
+  <iframe
+    name="hidden_iframe"
+    id="hidden_iframe"
+    style="display: none"
+    onload="if(submitted) {}"
+  ></iframe>
+</div>
+
+<%- include ('partials/footer') %>

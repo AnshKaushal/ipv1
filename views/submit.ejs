@@ -1,0 +1,27 @@
+<%- include ('partials/header') %>
+
+<h1 style="font-size: 3rem; text-align: center; margin-top: 2rem">
+  Submit your photos here!
+</h1>
+
+<div class="cont">
+  <% if (error) { %>
+  <p style="color: red"><%= error %></p>
+  <% } %>
+  <form action="/upload" method="POST" enctype="multipart/form-data">
+    <label for="photo">Submit an image : </label>
+    <input
+      type="file"
+      id="photo"
+      name="photo"
+      accept="image/*"
+      required
+    /><br /><br />
+    <label for="name">Your name : </label>
+    <input type="text" id="name" name="name" required /><br /><br />
+    <input type="submit" value="Submit" class="btn" />
+  </form>
+</div>
+
+<%- include ('partials/footer') %>
+

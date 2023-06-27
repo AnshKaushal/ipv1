@@ -1,0 +1,56 @@
+<%- include('partials/header') %>
+
+<main class="main">
+  <div class="logo">
+    <h1>PeaceTure</h1>
+    <p>The Essence of Photography</p>
+    <p style="font-size: 1.4rem">
+      We are professional photographers who like to show people, the world,
+      through our lenses!
+    </p>
+  </div>
+  <div class="logoContent">
+    <img src="/proImages/cover-photo-1.jpg" width="640" height="320" alt="Nice" />
+    <p>It&#39;s an essence to click beautiful photographs!</p>
+  </div>
+</main>
+<main class="main">
+  <div class="logoContent">
+    <img src="/proImages/cover-photo-2.jpg" width="640" height="320" alt="Nice" />
+    <p>Premium photoshoots that define elegence...</p>
+  </div>
+  <div class="logo">
+    <h1>Photography</h1>
+    <p>At the Finest</p>
+    <p style="font-size: 1.4rem">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum cupiditate
+      quas tenetur veritatis corrupti! Tempora ad id at consequuntur harum!
+    </p>
+  </div>
+</main>
+<h1 class="wrapper">Our Collection Of Great Photographs</h1>
+<div class="slider">
+  <div class="slideTrack">
+    <div class="slide">
+      <% Object.keys(images).forEach(function(id) { %>
+      <img
+        src="<%= images[id] %>"
+        width="640"
+        height="360"
+        alt="lorem"
+        onclick="window.open('<%= images[id] %>', '_blank')"
+      />
+      <% }); %>
+    </div>
+  </div>
+</div>
+<h1 style="text-align: center; text-shadow: 0 0 5px #1d1d1d; color: #efefef">
+  For more, Visit these links below! <br />
+</h1>
+<div class="links">
+  <a href="/about" class="link"> About us </a>
+  <a href="/contact" class="link"> Contact us </a>
+  <a href="/posts" class="link"> Latest Posts </a>
+</div>
+
+<%- include('partials/footer') %>

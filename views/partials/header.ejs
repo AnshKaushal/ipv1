@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeaceTure Photography</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="shortcut icon" href="https://toogood.netlify.app/bg.jpg" type="image/x-icon">
+</head>
+<body>
+    <nav>
+        <div class="navbar-logo">
+            <a href="/api"><img src="/proImages/1-modified.png" alt=""></a>
+        </div>
+        <ul class="navbar-menu">
+            <li>
+                <a class="<%= active === 'about' ? 'active' : '' %>" href="/api/about">About</a>
+            </li>
+            <li>
+                <a class="<%= active === 'portfolio' ? 'active' : '' %>" href="/api/portfolio">Portfolio</a>
+            </li>
+            <li>
+                <a class="<%= active === 'submit' ? 'active' : '' %>" href="/api/submit">Submit</a>
+            </li>
+            <li>
+                <a class="<%= active === 'images' ? 'active' : '' %>" href="/api/images">Images</a>
+            </li>
+            <li>
+                <a class="<%= active === 'posts' ? 'active' : '' %>" href="/api/posts">Posts</a>
+            </li>
+            <li>
+                <a class="<%= active === 'contact' ? 'active' : '' %>" href="/api/contact">Contact</a>
+            </li>
+          </ul>
+    </nav>

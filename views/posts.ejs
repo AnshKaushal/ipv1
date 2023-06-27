@@ -1,0 +1,17 @@
+<%- include('partials/header') %>
+
+<div class="posts">
+  <h1 class="heading">All Posts</h1>
+  <%  posts.forEach(function(post){ %>
+    <div class="postGrid">
+        <a href="/api/posts/<%=post.title%>">
+            <h2 class="title">
+                <%= post.title %>
+            </h2>
+        </a>
+        <p>By <a style="color:#454545" href="https://instagram.com/anshhkaushal">@AnshhKaushal</a></p>
+    </div>
+<% }); %>
+</div>
+
+<%- include('partials/footer') %>
