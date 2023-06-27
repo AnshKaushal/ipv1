@@ -14,6 +14,7 @@ const port = 3000 // Change the port number if needed
 
 // Set up the view engine
 app.set("view engine", "ejs")
+app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/images", express.static(__dirname + "/images"));
 app.use(express.urlencoded({ extended: true }))
