@@ -6,8 +6,6 @@ const fs = require("fs")
 const _ = require('lodash')
 const bodyParser = require("body-parser");
 const path = require('path')
-const postData = require(__dirname + "/data/data.json"); //data.json
-const posts = postData.posts; //posts
 
 const app = express()
 const port = 3000 // Change the port number if needed
@@ -47,8 +45,11 @@ JSON.parse(imagesJson).images.forEach((image) => {
   images[image.id] = image.src
 })
 
+const postData = require(__dirname + "/data/data.json"); //data.json
+const posts = postData.posts; //posts
+
 // All the routes
-app.post("/api/submit", upload.single("photo"), (req, res) => {
+app.post("/submit", upload.single("photo"), (req, res) => {
   try {
     const name = req.body.name
     const image = req.file.buffer.toString("base64")
@@ -68,7 +69,7 @@ app.post("/api/submit", upload.single("photo"), (req, res) => {
   }
 })
 
-app.get("/api/photos", (req, res) => {
+app.get("/photos", (req, res) => {
   const query = "SELECT * FROM photos"
   connection.query(query, (error, results) => {
     if (error) {
@@ -80,32 +81,32 @@ app.get("/api/photos", (req, res) => {
   })
 })
 
-app.get("/api/contact", function (req, res) {
+app.get("/contact", function (req, res) {
     res.render("contact", { active: "contact" });
   });
   
 
-app.get("/api/submit", function (req, res) {
+app.get("/submit", function (req, res) {
     res.render("submit", { active: "submit", error: null });
   });
 
 
-app.get("/api", function (req, res) {
+app.get("/", function (req, res) {
   res.render("index", { active: "index", images: images })
 })
 
-app.get("/api/about", function (req, res) {
+app.get("/about", function (req, res) {
   res.render("about", { active: "about" })
 })
 
-app.get("/api/portfolio", function (req, res) {
+app.get("/portfolio", function (req, res) {
   res.render("portfolio", { active: "portfolio", photos: photos })
 })
-app.get("/api/posts", function (req, res) {
+app.get("/posts", function (req, res) {
   res.render("posts", { active: "posts", posts: posts })
 })
 
-app.get("/api/posts/:postName", (req, res) => {
+app.get("/posts/:postName", (req, res) => {
   const requestedTitle = _.lowerCase(req.params.postName)
 
   posts.forEach(function (post) {
@@ -124,17 +125,13 @@ app.get("/api/posts/:postName", (req, res) => {
   })
 })
 
-app.get("/api/images", (req, res) => {
+app.get("/images", (req, res) => {
     const sql = "SELECT * FROM photos";
     connection.query(sql, (err, results) => {
       if (err) throw err;
       res.render("photos", { photos: results, active: "photos" });
     });
 });
-
-app.get('/', (req, res) => {
-    res.redirect('/api');
-  });
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`)
