@@ -60,7 +60,7 @@ app.post("/submit", upload.single("photo"), (req, res) => {
         console.error("Error inserting photo into the database: " + error)
         res.sendStatus(500)
       } else {
-        res.redirect("/api/photos")
+        res.redirect("/images")
       }
     })
   } catch (error) {
@@ -69,7 +69,7 @@ app.post("/submit", upload.single("photo"), (req, res) => {
   }
 })
 
-app.get("/photos", (req, res) => {
+app.get("/images", (req, res) => {
   const query = "SELECT * FROM photos"
   connection.query(query, (error, results) => {
     if (error) {
@@ -124,14 +124,6 @@ app.get("/posts/:postName", (req, res) => {
     }
   })
 })
-
-app.get("/images", (req, res) => {
-    const sql = "SELECT * FROM photos";
-    connection.query(sql, (err, results) => {
-      if (err) throw err;
-      res.render("photos", { photos: results, active: "photos" });
-    });
-});
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`)
