@@ -59,8 +59,12 @@ app.post("/submit", upload.single("photo"), (req, res) => {
     const name = req.body.name;
     const image = req.file.buffer;
 
+    const extension = req.file.originalname.split(".").pop().toLowerCase();
+    const mimeType = `image/${extension}`;
+    const dataUrl = `data:${mimeType};base64,${image.toString("base64")}`;
+
     const query = "INSERT INTO photos (name, image) VALUES (?, ?)";
-    connection.query(query, [name, image], (error, results) => {
+    connection.query(query, [name, dataUrl], (error, results) => {
       if (error) {
         console.error("Error inserting photo into the database: " + error);
         res.sendStatus(500);

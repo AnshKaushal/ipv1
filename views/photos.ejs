@@ -7,7 +7,7 @@
   <% } else { %>
       <% photos.forEach(function(photo) { %>
         <div class="images">
-          <img src="data:image/jpeg;base64,<%= photo.image.toString('base64') %>" alt="<%= photo.name %>" width="300">
+          <img src="<%= photo.image %>" alt="<%= photo.name %>" width="300">
           <h2>Uploaded By : <%= photo.name %></h2>
          </div>
         <% }); %>
