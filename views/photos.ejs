@@ -8,7 +8,7 @@
       <% photos.forEach(function(photo) { %>
         <div class="images">
           <img src="<%= photo.image %>" alt="<%= photo.name %>" width="300">
-          <h2>Uploaded By : <%= photo.name %></h2>
+          <h2><%= photo.name %></h2>
          </div>
         <% }); %>
   <% } %>
