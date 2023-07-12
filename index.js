@@ -4,6 +4,7 @@ const multer = require("multer")
 const mysql = require("mysql2")
 const fs = require("fs")
 const _ = require('lodash')
+const imgbbUploader = require("imgbb-uploader");
 const bodyParser = require("body-parser");
 const path = require('path')
 
@@ -49,7 +50,7 @@ const postData = require(__dirname + "/data/data.json"); //data.json
 const posts = postData.posts; //posts
 
 // All the routes
-app.post("/submit", upload.single("photo"), (req, res) => {
+app.post("/submit", upload.single("photo"), async (req, res) => {
   try {
     if (!req.file) {
       res.status(400).send("No file uploaded.");
@@ -59,12 +60,16 @@ app.post("/submit", upload.single("photo"), (req, res) => {
     const name = req.body.name;
     const image = req.file.buffer;
 
-    const extension = req.file.originalname.split(".").pop().toLowerCase();
-    const mimeType = `image/${extension}`;
-    const dataUrl = `data:${mimeType};base64,${image.toString("base64")}`;
+    const response = await imgbbUploader({
+      apiKey: "cac657f9d11feca4d9d26fab6d265ca7",
+      base64string: image.toString("base64"),
+      name: req.file.originalname,
+    });
+
+    const imageUrl = response.url;
 
     const query = "INSERT INTO photos (name, image) VALUES (?, ?)";
-    connection.query(query, [name, dataUrl], (error, results) => {
+    connection.query(query, [name, imageUrl], (error, results) => {
       if (error) {
         console.error("Error inserting photo into the database: " + error);
         res.sendStatus(500);
