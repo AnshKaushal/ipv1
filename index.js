@@ -51,23 +51,28 @@ const posts = postData.posts; //posts
 // All the routes
 app.post("/submit", upload.single("photo"), (req, res) => {
   try {
-    const name = req.body.name
-    const image = req.file.buffer.toString("base64")
+    if (!req.file) {
+      res.status(400).send("No file uploaded.");
+      return;
+    }
 
-    const query = "INSERT INTO photos (name, image) VALUES (?, ?)"
+    const name = req.body.name;
+    const image = req.file.buffer;
+
+    const query = "INSERT INTO photos (name, image) VALUES (?, ?)";
     connection.query(query, [name, image], (error, results) => {
       if (error) {
-        console.error("Error inserting photo into the database: " + error)
-        res.sendStatus(500)
+        console.error("Error inserting photo into the database: " + error);
+        res.sendStatus(500);
       } else {
-        res.redirect("/images")
+        res.redirect("/images");
       }
-    })
+    });
   } catch (error) {
-    console.error(error)
-    res.sendStatus(500)
+    console.error(error);
+    res.sendStatus(500);
   }
-})
+});
 
 app.get("/images", (req, res) => {
   const query = "SELECT * FROM photos"
