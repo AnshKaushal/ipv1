@@ -58,7 +58,7 @@ app.post("/submit", upload.single("photo"), async (req, res) => {
     const image = req.file.buffer
 
     const response = await imgbbUploader({
-      apiKey: "cac657f9d11feca4d9d26fab6d265ca7",
+      apiKey: process.env.IMGBB_API_KEY,
       base64string: image.toString("base64"),
       name: req.file.originalname,
     })
