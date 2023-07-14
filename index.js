@@ -111,37 +111,41 @@ app.get("/about", function (req, res) {
 app.get("/portfolio", function (req, res) {
   res.render("portfolio", { active: "portfolio", photos: photos })
 })
-app.get('/journal', (req, res) => {
-  connection.query('SELECT * FROM posts', (error, results) => {
+app.get("/journal", (req, res) => {
+  connection.query("SELECT * FROM posts", (error, results) => {
     if (error) {
-      console.error('Error retrieving posts:', error);
-      res.status(500).send('Internal Server Error');
+      console.error("Error retrieving posts:", error)
+      res.status(500).send("Internal Server Error")
     } else {
-      res.render('journal', { active: 'posts', posts: results });
+      res.render("journal", { active: "posts", posts: results })
     }
-  });
-});
+  })
+})
 
-app.get('/post/:postId', (req, res) => {
-  const requestedId = req.params.postId;
-  connection.query('SELECT * FROM posts WHERE id = ?', [requestedId], (error, results) => {
-    if (error) {
-      console.error('Error retrieving post:', error);
-      res.status(500).send('Internal Server Error');
-    } else if (results.length === 0) {
-      res.status(404).send('Post not found');
-    } else {
-      const post = results[0];
-      res.render('post', {
-        id: post.id,
-        title: post.title,
-        content: post.content,
-        description: post.description,
-        active: 'Post',
-      });
+app.get("/post/:postId", (req, res) => {
+  const requestedId = req.params.postId
+  connection.query(
+    "SELECT * FROM posts WHERE id = ?",
+    [requestedId],
+    (error, results) => {
+      if (error) {
+        console.error("Error retrieving post:", error)
+        res.status(500).send("Internal Server Error")
+      } else if (results.length === 0) {
+        res.status(404).send("Post not found")
+      } else {
+        const post = results[0]
+        res.render("post", {
+          id: post.id,
+          title: post.title,
+          content: post.content,
+          description: post.description,
+          active: "Post",
+        })
+      }
     }
-  });
-});
+  )
+})
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`)
