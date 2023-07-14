@@ -60,6 +60,7 @@ app.post("/submit", upload.single("photo"), async (req, res) => {
       apiKey: process.env.IMGBB_API_KEY,
       base64string: image.toString("base64"),
       name: req.file.originalname,
+      timeout: 10,
     });
 
     const imageUrl = response.url;
