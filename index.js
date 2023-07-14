@@ -50,35 +50,34 @@ JSON.parse(imagesJson).images.forEach((image) => {
 app.post("/submit", upload.single("photo"), async (req, res) => {
   try {
     if (!req.file) {
-      res.status(400).send("No file uploaded.")
-      return
+      return res.status(400).send("No file uploaded.");
     }
 
-    const name = req.body.name
-    const image = req.file.buffer
+    const name = req.body.name;
+    const image = req.file.buffer;
 
     const response = await imgbbUploader({
       apiKey: process.env.IMGBB_API_KEY,
       base64string: image.toString("base64"),
       name: req.file.originalname,
-    })
+    });
 
-    const imageUrl = response.url
+    const imageUrl = response.url;
 
-    const query = "INSERT INTO photos (name, image) VALUES (?, ?)"
+    const query = "INSERT INTO photos (name, image) VALUES (?, ?)";
     connection.query(query, [name, imageUrl], (error, results) => {
       if (error) {
-        console.error("Error inserting photo into the database: " + error)
-        res.sendStatus(500)
-      } else {
-        res.redirect("/images")
+        console.error("Error inserting photo into the database: " + error);
+        return res.sendStatus(500);
       }
-    })
+      res.redirect("/images");
+    });
   } catch (error) {
-    console.error(error)
-    res.sendStatus(500)
+    console.error(error);
+    res.sendStatus(500);
   }
-})
+});
+
 
 app.get("/images", (req, res) => {
   const query = "SELECT * FROM photos"
